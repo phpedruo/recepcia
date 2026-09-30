@@ -12,28 +12,33 @@
 
 ### v0.1: agenda pelo painel (até a semana 8)
 
-- Login e papéis, com uma pessoa podendo fazer parte de várias empresas.
+Só a equipe da empresa usa o sistema. O cliente não mexe em nada: ele liga ou aparece, e a recepção faz tudo por ele.
+
+- Login e papéis, com uma pessoa podendo fazer parte de várias empresas. O administrador da plataforma cadastra a empresa e convida o dono, e o dono convida a equipe.
 - Cadastro da empresa, dos serviços, dos profissionais e dos horários de funcionamento.
 - Clientes.
-- Agenda com as regras: horários livres, conflitos e antecedência mínima. Por enquanto, quem agenda é a recepção, pelo painel.
-- Painel de demonstração com a empresa gerada, recriada toda noite.
+- Agenda com as regras: horários livres, conflitos, antecedência mínima e intervalo entre horários, configurados pelo dono. Quem agenda é a recepção, pelo painel, e ela pode cancelar e remarcar a qualquer momento.
+- Gerador de dados inventados, para desenvolver e para as capturas de tela do README.
 
 ### v0.2: assistente no WhatsApp
 
 - Integração com a API oficial do WhatsApp.
 - A assistente tira dúvidas e marca, remarca e cancela pela agenda, com a confirmação do cliente.
+- Política de cancelamento: fora do prazo, a assistente não cancela nem remarca e passa a conversa para uma pessoa.
 - Aceite da política de privacidade e tratamento da recusa.
 - Transferência para humano, na forma mínima.
 - Transcrição de áudios.
 - Limite de respostas por número.
 - Conversas visíveis no painel.
 - Avaliações da IA com conversas de exemplo.
+- Painel de demonstração público, com a empresa gerada.
 
 ### v0.3: operação
 
 - Um funcionário assume a conversa pelo painel.
 - Confirmação e lembrete automáticos pelo WhatsApp.
 - Primeiros indicadores.
+- Folgas, feriados e férias da empresa e dos profissionais.
 - Exclusão de dados pelo painel, com registro de auditoria, e retenção automática das mensagens.
 
 ## Backlog depois da v0.3, na ordem

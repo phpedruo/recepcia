@@ -12,7 +12,7 @@ O repositório pode ficar exposto a qualquer pessoa, porque é portfólio e vai 
 Nenhum dado real de pessoa entra no repositório, em nenhuma forma:
 
 - **Dados de teste, dados iniciais, conversas de avaliação da IA e exemplos da documentação:** sempre inventados ou gerados.
-- **Capturas de tela e vídeos:** só da empresa de demonstração, que é gerada pelo sistema e recriada toda noite.
+- **Capturas de tela e vídeos:** só da empresa de demonstração, que é gerada pelo sistema com dados inventados.
 - **Arquivos de configuração local (`.env`), logs e exportações do banco:** nunca entram. O `.gitignore` bloqueia esses arquivos, e só um `.env.example` com valores falsos é versionado.
 - **Segredos** (chaves e senhas): só em variáveis de ambiente. Uma verificação automática de segredos roda na integração contínua.
 - **Revisão:** o checklist de todo PR tem o item "Nenhum dado real de pessoas neste PR".

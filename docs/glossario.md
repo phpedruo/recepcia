@@ -24,7 +24,8 @@ A linguagem do domínio da RecepcIA. A documentação usa os termos em portuguê
 | Agendamento | `Appointment` | Um serviço marcado para um cliente com um profissional, com início e fim. |
 | Disponibilidade | `Availability` | Os horários livres de um profissional para um serviço, calculados a partir do horário de funcionamento, dos agendamentos existentes e das regras. |
 | Conflito | — | Dois agendamentos do mesmo profissional que se sobrepõem. O banco de dados proíbe. |
-| Antecedência mínima | `minimumNotice` | Com quanto tempo de antecedência um horário pode ser marcado. |
+| Antecedência mínima | `minimumNotice` | Com quanto tempo de antecedência um horário pode ser marcado. O dono configura, e ela vale para todos que marcam. |
+| Intervalo entre horários | `slotInterval` | De quanto em quanto tempo começam os horários livres oferecidos, como 9h00, 9h15, 9h30. A empresa define um padrão, e cada serviço pode ter o seu. |
 | Política de cancelamento | `CancellationPolicy` | Até quando um agendamento pode ser cancelado ou remarcado sem penalidade. |
 
 ## Atendimento pelo WhatsApp
@@ -55,5 +56,5 @@ A linguagem do domínio da RecepcIA. A documentação usa os termos em portuguê
 
 | Termo | No código | Definição |
 | --- | --- | --- |
-| Empresa de demonstração | `DemoBusiness` | Empresa gerada pelo sistema, com dados inventados, recriada toda noite. É a que o painel público de demonstração mostra. |
+| Empresa de demonstração | `DemoBusiness` | Empresa gerada pelo sistema, com dados inventados. É usada para desenvolver, nas capturas de tela e, a partir da v0.2, no painel público de demonstração. |
 | Empresa RecepcIA | — | A própria RecepcIA como empresa no sistema, atendendo pelo número real de WhatsApp da demonstração. Os dados dela nunca aparecem em público. |
