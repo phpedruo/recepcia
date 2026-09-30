@@ -2,6 +2,17 @@
 
 A linguagem do domínio da RecepcIA. A documentação usa os termos em português, e o código usa o nome em inglês da segunda coluna. Quando um termo mudar, ele muda aqui primeiro.
 
+## Módulos
+
+Os módulos do backend (ADR 0002) e o pacote de cada um, dentro de `me.recepcia`. Um módulo entra aqui quando é criado.
+
+| Módulo | Pacote |
+| --- | --- |
+| Empresas e acessos | `business` |
+| Catálogo | `catalog` |
+| Clientes | `customer` |
+| Agenda | `scheduling` |
+
 ## Empresas e acessos
 
 | Termo | No código | Definição |
