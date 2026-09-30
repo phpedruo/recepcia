@@ -1,0 +1,22 @@
+# Configuração local e segredos (ADR 0010)
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+logs/
+
+# Exportações do banco (ADR 0010)
+*.dump
+*.backup
+*.sql.gz
+dumps/
+
+# Sistema e editores
+.DS_Store
+.idea/
+.vscode/
+
+# Gerado pelas ferramentas de build fora do Maven, como a extensão Java do editor
+build/
