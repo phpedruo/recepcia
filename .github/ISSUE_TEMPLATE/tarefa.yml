@@ -1,0 +1,25 @@
+name: Tarefa técnica
+description: Trabalho técnico sem história de usuário, como infraestrutura, build ou refatoração.
+labels: ["tipo: tarefa"]
+body:
+  - type: textarea
+    id: objetivo
+    attributes:
+      label: Objetivo
+      description: Por que essa tarefa existe.
+    validations:
+      required: true
+  - type: textarea
+    id: pronto-quando
+    attributes:
+      label: Pronto quando
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+  - type: textarea
+    id: notas
+    attributes:
+      label: Notas
+      description: ADRs relacionados, links e dependências.

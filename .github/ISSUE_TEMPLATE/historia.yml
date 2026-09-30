@@ -1,0 +1,31 @@
+name: História de usuário
+description: Uma funcionalidade do ponto de vista de quem usa.
+labels: ["tipo: história"]
+body:
+  - type: textarea
+    id: historia
+    attributes:
+      label: História
+      placeholder: Como [papel], quero [ação], para [benefício].
+    validations:
+      required: true
+  - type: textarea
+    id: criterios
+    attributes:
+      label: Critérios de aceite
+      description: Cada critério vira pelo menos um teste.
+      placeholder: |
+        - [ ] **Dado** que ..., **quando** ..., **então** ...
+        - [ ] **Dado** que ..., **quando** ..., **então** ...
+    validations:
+      required: true
+  - type: textarea
+    id: fora-do-escopo
+    attributes:
+      label: Fora do escopo
+      description: O que parece fazer parte, mas fica para outra issue.
+  - type: textarea
+    id: notas
+    attributes:
+      label: Notas
+      description: Regras, termos do glossário, ADRs relacionados e dependências.

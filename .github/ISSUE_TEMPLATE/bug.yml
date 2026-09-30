@@ -1,0 +1,38 @@
+name: Bug
+description: Algo não funciona como deveria.
+labels: ["tipo: bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Use só dados inventados. Nenhum dado real de pessoas entra no repositório, nem em issues (ADR 0010).
+  - type: textarea
+    id: aconteceu
+    attributes:
+      label: O que aconteceu
+    validations:
+      required: true
+  - type: textarea
+    id: esperado
+    attributes:
+      label: O que era esperado
+    validations:
+      required: true
+  - type: textarea
+    id: reproduzir
+    attributes:
+      label: Como reproduzir
+      placeholder: |
+        1. ...
+        2. ...
+    validations:
+      required: true
+  - type: dropdown
+    id: ambiente
+    attributes:
+      label: Onde
+      options:
+        - Produção
+        - Demonstração
+        - Local
+    validations:
+      required: true
