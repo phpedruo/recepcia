@@ -28,18 +28,32 @@ Os motivos de cada escolha estão nos [ADRs](docs/adr/README.md).
 
 ## Como rodar
 
-É preciso ter o Java 25 e o Docker. O Maven vem junto, pelo Maven Wrapper. Para trabalhar no painel, também é preciso o Node.js 24.
+É preciso ter o Java 25 e o Docker, com o Docker Compose. O Maven vem junto, pelo Maven Wrapper. Para trabalhar no painel, também é preciso o Node.js 24.
+
+### Banco e e-mail
+
+O Docker Compose liga o PostgreSQL e o Mailpit, um servidor de e-mail falso. Na primeira vez, copie o `.env.example` para `.env`. É nele que fica a senha do banco local, e ele nunca entra no repositório.
+
+```bash
+cp .env.example .env          # só na primeira vez
+docker compose up -d --wait   # liga o PostgreSQL e o Mailpit e espera os dois ficarem prontos
+docker compose stop           # desliga os dois e guarda os dados
+docker compose down -v        # apaga os dois, junto com os dados do banco
+```
+
+- O banco fica em `localhost:5432`. O banco e o usuário se chamam `recepcia`, e a senha é a do `.env`. A senha só vale quando o banco é criado: para trocá-la depois, apague o banco com `docker compose down -v`.
+- Os e-mails que a API envia não saem do computador. Eles aparecem no Mailpit, em <http://localhost:8025>.
 
 ### Backend
 
 ```bash
 cd backend
-./mvnw test                   # roda os testes; os de integração sobem um PostgreSQL no Docker
-./mvnw spring-boot:test-run   # roda a API com um PostgreSQL temporário no Docker
-./mvnw verify                 # roda os testes e gera o .jar com o painel dentro
+./mvnw spring-boot:run   # roda a API; precisa do banco e do Mailpit ligados
+./mvnw test              # roda os testes; os de integração sobem o próprio PostgreSQL no Docker
+./mvnw verify            # roda os testes e gera o .jar com o painel dentro
 ```
 
-Com a API rodando, <http://localhost:8080/actuator/health> responde `{"status":"UP"}`. O `./mvnw verify` baixa o próprio Node.js para gerar o painel, então não depende do Node instalado na máquina.
+O `./mvnw spring-boot:run` usa o perfil `local` (`application-local.yaml`), que lê o `.env`. Com a API rodando, <http://localhost:8080/actuator/health> mostra o status da API, do banco (`db`) e do e-mail (`mail`). O `./mvnw verify` baixa o próprio Node.js para gerar o painel, então não depende do Node instalado na máquina.
 
 > Feche o `npm start` e o `npm test` do painel antes do `./mvnw verify`. Ele roda `npm ci`, que apaga e reinstala o `node_modules` do painel, e esses processos podem começar a dar erro. Se esquecer, é só reiniciá-los depois.
 
