@@ -1,0 +1,11 @@
+# Nada aqui depende do ambiente. A conexão com o banco vem das variáveis
+# SPRING_DATASOURCE_URL, SPRING_DATASOURCE_USERNAME e SPRING_DATASOURCE_PASSWORD
+# (ADR 0008). Os nomes estão no .env.example, na raiz do repositório.
+spring:
+  application:
+    name: recepcia
+  jpa:
+    open-in-view: false
+    hibernate:
+      # A estrutura do banco é do Flyway. O Hibernate só confere se as entidades batem com ela.
+      ddl-auto: validate

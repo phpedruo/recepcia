@@ -4,7 +4,7 @@ Recepcionista virtual com IA no WhatsApp para negócios de horário marcado.
 
 Salões, barbearias, estúdios, pet shops e outros negócios que vivem de agenda recebem as mesmas perguntas o dia inteiro: preço, horário livre, endereço, remarcação. A RecepcIA dá a cada empresa uma assistente no WhatsApp que responde essas perguntas e marca, remarca e cancela horários direto na agenda. Antes de qualquer mudança, o cliente confirma. Donos e funcionários acompanham tudo num painel: agenda, clientes, conversas e indicadores.
 
-> **Status:** Marco 0, a fundação. Ainda não há código. O planejamento está no [roadmap](docs/roadmap.md).
+> **Status:** Marco 0, a fundação. O esqueleto do projeto está sendo montado. O planejamento está no [roadmap](docs/roadmap.md).
 
 ## Como funciona
 
@@ -25,6 +25,18 @@ Salões, barbearias, estúdios, pet shops e outros negócios que vivem de agenda
 | Integração contínua | GitHub Actions |
 
 Os motivos de cada escolha estão nos [ADRs](docs/adr/README.md).
+
+## Como rodar
+
+É preciso ter o Java 25 e o Docker. O Maven vem junto, pelo Maven Wrapper.
+
+```bash
+cd backend
+./mvnw verify                 # roda todos os testes; os de integração sobem um PostgreSQL no Docker
+./mvnw spring-boot:test-run   # roda a aplicação com um PostgreSQL temporário no Docker
+```
+
+Com a aplicação rodando, <http://localhost:8080/actuator/health> responde `{"status":"UP"}`.
 
 ## Documentação
 

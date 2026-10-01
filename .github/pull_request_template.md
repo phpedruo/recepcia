@@ -1,6 +1,7 @@
 ## O que muda
 
-Fecha #
+<!-- "Closes" fica em inglês: é a palavra que o GitHub reconhece para ligar o PR à issue e fechá-la no merge. -->
+Closes #
 
 ## Como testar
 
