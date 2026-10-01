@@ -41,6 +41,8 @@ cd backend
 
 Com a API rodando, <http://localhost:8080/actuator/health> responde `{"status":"UP"}`. O `./mvnw verify` baixa o próprio Node.js para gerar o painel, então não depende do Node instalado na máquina.
 
+> Feche o `npm start` e o `npm test` do painel antes do `./mvnw verify`. Ele roda `npm ci`, que apaga e reinstala o `node_modules` do painel, e esses processos podem começar a dar erro. Se esquecer, é só reiniciá-los depois.
+
 ### Painel
 
 ```bash
