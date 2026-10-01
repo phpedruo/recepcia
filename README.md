@@ -28,15 +28,29 @@ Os motivos de cada escolha estão nos [ADRs](docs/adr/README.md).
 
 ## Como rodar
 
-É preciso ter o Java 25 e o Docker. O Maven vem junto, pelo Maven Wrapper.
+É preciso ter o Java 25 e o Docker. O Maven vem junto, pelo Maven Wrapper. Para trabalhar no painel, também é preciso o Node.js 24.
+
+### Backend
 
 ```bash
 cd backend
-./mvnw verify                 # roda todos os testes; os de integração sobem um PostgreSQL no Docker
-./mvnw spring-boot:test-run   # roda a aplicação com um PostgreSQL temporário no Docker
+./mvnw test                   # roda os testes; os de integração sobem um PostgreSQL no Docker
+./mvnw spring-boot:test-run   # roda a API com um PostgreSQL temporário no Docker
+./mvnw verify                 # roda os testes e gera o .jar com o painel dentro
 ```
 
-Com a aplicação rodando, <http://localhost:8080/actuator/health> responde `{"status":"UP"}`.
+Com a API rodando, <http://localhost:8080/actuator/health> responde `{"status":"UP"}`. O `./mvnw verify` baixa o próprio Node.js para gerar o painel, então não depende do Node instalado na máquina.
+
+> Feche o `npm start` e o `npm test` do painel antes do `./mvnw verify`. Ele roda `npm ci`, que apaga e reinstala o `node_modules` do painel, e esses processos podem começar a dar erro. Se esquecer, é só reiniciá-los depois.
+
+### Painel
+
+```bash
+cd frontend
+npm ci      # instala as dependências
+npm start   # abre o painel em http://localhost:4200 e repassa /api e /actuator para a API na porta 8080
+npm test    # roda os testes do painel
+```
 
 ## Documentação
 

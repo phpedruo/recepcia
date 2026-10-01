@@ -1,0 +1,12 @@
+<main>
+  <h1>RecepcIA</h1>
+  @if (health.isLoading()) {
+    <p>Verificando a API…</p>
+  } @else if (health.hasValue()) {
+    <p>
+      API: <strong>{{ health.value().status }}</strong>
+    </p>
+  } @else {
+    <p>A API está fora do ar.</p>
+  }
+</main>
