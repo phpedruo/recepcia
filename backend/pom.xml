@@ -118,8 +118,11 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<!-- Gera o painel e o coloca junto da API (ADR 0003). Fica no prepare-package
-			     para o ./mvnw test, usado no dia a dia do TDD, não reconstruir o painel. -->
+			     para o ./mvnw test, usado no dia a dia do TDD, não reconstruir o painel.
+			     O "m2e ignore" impede o VS Code e o Eclipse de rodarem essas etapas sozinhos
+			     a cada mudança no projeto. Só o Maven, pela linha de comando, gera o painel. -->
 			<plugin>
+				<?m2e ignore?>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
 				<version>${frontend-maven-plugin.version}</version>
