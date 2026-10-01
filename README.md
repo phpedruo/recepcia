@@ -1,5 +1,9 @@
 # RecepcIA
 
+[![Integração contínua](https://github.com/phpedruo/recepcia/actions/workflows/ci.yml/badge.svg)](https://github.com/phpedruo/recepcia/actions/workflows/ci.yml)
+![Cobertura do backend](https://github.com/phpedruo/recepcia/raw/badges/cobertura-backend.svg)
+![Cobertura do painel](https://github.com/phpedruo/recepcia/raw/badges/cobertura-painel.svg)
+
 Recepcionista virtual com IA no WhatsApp para negócios de horário marcado.
 
 Salões, barbearias, estúdios, pet shops e outros negócios que vivem de agenda recebem as mesmas perguntas o dia inteiro: preço, horário livre, endereço, remarcação. A RecepcIA dá a cada empresa uma assistente no WhatsApp que responde essas perguntas e marca, remarca e cancela horários direto na agenda. Antes de qualquer mudança, o cliente confirma. Donos e funcionários acompanham tudo num painel: agenda, clientes, conversas e indicadores.
@@ -22,7 +26,7 @@ Salões, barbearias, estúdios, pet shops e outros negócios que vivem de agenda
 | WhatsApp | API oficial da Meta (Cloud API) |
 | IA | Groq, com Cloudflare Workers AI de reserva |
 | Hospedagem | Heroku, com imagem Docker |
-| Integração contínua | GitHub Actions |
+| Integração contínua | GitHub Actions, com Semgrep e gitleaks |
 
 Os motivos de cada escolha estão nos [ADRs](docs/adr/README.md).
 
@@ -50,10 +54,10 @@ docker compose down -v        # apaga os dois, junto com os dados do banco
 cd backend
 ./mvnw spring-boot:run   # roda a API; precisa do banco e do Mailpit ligados
 ./mvnw test              # roda os testes; os de integração sobem o próprio PostgreSQL no Docker
-./mvnw verify            # roda os testes e gera o .jar com o painel dentro
+./mvnw verify            # roda os testes, mede a cobertura e gera o .jar com o painel dentro; não liga a API
 ```
 
-O `./mvnw spring-boot:run` usa o perfil `local` (`application-local.yaml`), que lê o `.env`. Com a API rodando, <http://localhost:8080/actuator/health> mostra o status da API, do banco (`db`) e do e-mail (`mail`). O `./mvnw verify` baixa o próprio Node.js para gerar o painel, então não depende do Node instalado na máquina.
+O `./mvnw spring-boot:run` usa o perfil `local` (`application-local.yaml`), que lê o `.env`. Com a API rodando, <http://localhost:8080/actuator/health> mostra o status da API, do banco (`db`) e do e-mail (`mail`). O `./mvnw verify` baixa o próprio Node.js para gerar o painel, então não depende do Node instalado na máquina. O relatório de cobertura fica em `backend/target/site/jacoco/index.html`.
 
 > Feche o `npm start` e o `npm test` do painel antes do `./mvnw verify`. Ele roda `npm ci`, que apaga e reinstala o `node_modules` do painel, e esses processos podem começar a dar erro. Se esquecer, é só reiniciá-los depois.
 
@@ -61,10 +65,22 @@ O `./mvnw spring-boot:run` usa o perfil `local` (`application-local.yaml`), que 
 
 ```bash
 cd frontend
-npm ci      # instala as dependências
-npm start   # abre o painel em http://localhost:4200 e repassa /api e /actuator para a API na porta 8080
-npm test    # roda os testes do painel
+npm ci                   # instala as dependências
+npm start                # abre o painel em http://localhost:4200 e repassa /api e /actuator para a API na porta 8080
+npm test                 # roda os testes do painel
+npm test -- --coverage   # roda os testes e mede a cobertura; o relatório fica em coverage/recepcia/index.html
 ```
+
+## Integração contínua
+
+A cada PR e a cada merge na `main`, o GitHub Actions roda quatro verificações:
+
+- os testes do backend, com a cobertura;
+- os testes do painel, com a cobertura;
+- o gitleaks, que procura senhas e chaves em todo o histórico do repositório;
+- o Semgrep, que procura falhas de segurança no código.
+
+O merge só acontece com as quatro passando. Depois de cada merge, os selos de cobertura do começo deste arquivo são atualizados. As escolhas estão no [ADR 0013](docs/adr/0013-integracao-continua-com-semgrep-e-gitleaks.md).
 
 ## Documentação
 
