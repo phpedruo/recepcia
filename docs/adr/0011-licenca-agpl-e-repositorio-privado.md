@@ -2,6 +2,7 @@
 
 - Status: aceita
 - Data: 2026-09-30
+- Complementada pelo [ADR 0013](0013-integracao-continua-com-semgrep-e-gitleaks.md), que escolhe as ferramentas da integração contínua enquanto o repositório for privado.
 
 ## Contexto
 
