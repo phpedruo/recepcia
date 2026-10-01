@@ -24,6 +24,7 @@
 		<java.version>25</java.version>
 		<spring-modulith.version>2.1.1</spring-modulith.version>
 		<frontend-maven-plugin.version>2.0.2</frontend-maven-plugin.version>
+		<jacoco.version>0.8.15</jacoco.version>
 		<node.version>v24.21.0</node.version>
 		<frontend.directory>${project.basedir}/../frontend</frontend.directory>
 	</properties>
@@ -131,6 +132,46 @@
 					<profiles>
 						<profile>local</profile>
 					</profiles>
+				</configuration>
+			</plugin>
+			<!-- Mede a cobertura dos testes (ADR 0012). O relatório fica em target/site/jacoco. -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- O Mockito entra nos testes como agente Java, como recomenda a documentação dele.
+			     Sem isso, ele se instala sozinho durante os testes, o que o Java vai proibir.
+			     O dependency:properties cria a propriedade com o caminho do jar do Mockito, e o
+			     @{argLine} traz o agente do JaCoCo. O -Xshare:off cala o aviso de "Sharing", que
+			     o Java dá quando o Mockito acrescenta classes ao carregador principal. -->
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>properties</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar} -Xshare:off</argLine>
 				</configuration>
 			</plugin>
 			<!-- Gera o painel e o coloca junto da API (ADR 0003). Fica no prepare-package
