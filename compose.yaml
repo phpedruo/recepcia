@@ -1,0 +1,34 @@
+# Ambiente local: o banco e o servidor de e-mail falso que a API usa no
+# computador. Os testes não usam este banco: eles sobem o próprio PostgreSQL
+# com o Testcontainers (ADR 0012).
+name: recepcia
+
+services:
+  postgres:
+    # Mesma versão principal do Heroku e mesma imagem dos testes. A Debian, e
+    # não a Alpine, ordena textos com acento do mesmo jeito que o banco de produção.
+    image: postgres:18
+    environment:
+      POSTGRES_DB: recepcia
+      POSTGRES_USER: recepcia
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?copie o .env.example para .env}
+    ports:
+      # Só o próprio computador acessa as portas, nunca a rede.
+      - 127.0.0.1:5432:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: pg_isready --username=recepcia --dbname=recepcia
+      interval: 2s
+      timeout: 5s
+      retries: 15
+
+  mailpit:
+    # Guarda os e-mails que a API envia, sem entregá-los, e mostra numa página.
+    image: axllent/mailpit:v1.31
+    ports:
+      - 127.0.0.1:1025:1025 # SMTP, usado pela API
+      - 127.0.0.1:8025:8025 # página com os e-mails
+
+volumes:
+  postgres-data:
