@@ -1,0 +1,20 @@
+# Perfil do computador de quem desenvolve, ativado pelo ./mvnw spring-boot:run
+# (pom.xml). Os testes e a produção não usam este arquivo.
+spring:
+  config:
+    # O .env da raiz do repositório, o mesmo que o Docker Compose lê.
+    import: file:../.env[.properties]
+  datasource:
+    # O PostgreSQL do compose.yaml.
+    url: jdbc:postgresql://localhost:5432/recepcia
+    username: recepcia
+    password: ${POSTGRES_PASSWORD}
+  mail:
+    # O Mailpit do compose.yaml. Os e-mails aparecem em http://localhost:8025.
+    host: localhost
+    port: 1025
+management:
+  endpoint:
+    health:
+      # Mostra o banco e o e-mail no /actuator/health, para conferir as conexões.
+      show-details: always

@@ -1,6 +1,7 @@
-# Nada aqui depende do ambiente. A conexão com o banco vem das variáveis
-# SPRING_DATASOURCE_URL, SPRING_DATASOURCE_USERNAME e SPRING_DATASOURCE_PASSWORD
-# (ADR 0008). Os nomes estão no .env.example, na raiz do repositório.
+# Nada aqui depende do ambiente. Em produção, a conexão com o banco vem das
+# variáveis SPRING_DATASOURCE_URL, SPRING_DATASOURCE_USERNAME e
+# SPRING_DATASOURCE_PASSWORD (ADR 0008). No computador, vem do perfil local
+# (application-local.yaml).
 spring:
   application:
     name: recepcia
