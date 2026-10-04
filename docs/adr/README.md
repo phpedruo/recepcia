@@ -16,3 +16,4 @@ Como e por que os ADRs são escritos está no [ADR 0001](0001-registrar-decisoes
 | [0010](0010-nenhum-dado-real-no-repositorio.md) | Nenhum dado real no repositório | aceita |
 | [0011](0011-licenca-agpl-e-repositorio-privado.md) | Licença AGPL-3.0, com o repositório privado por enquanto | aceita |
 | [0012](0012-estrategia-de-testes.md) | Estratégia de testes | aceita |
+| [0013](0013-integracao-continua-com-semgrep-e-gitleaks.md) | Integração contínua no GitHub Actions, com Semgrep e gitleaks | aceita |
