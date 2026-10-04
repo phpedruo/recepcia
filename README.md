@@ -45,7 +45,8 @@ docker compose stop           # desliga os dois e guarda os dados
 docker compose down -v        # apaga os dois, junto com os dados do banco
 ```
 
-- O banco fica em `localhost:5432`. O banco e o usuário se chamam `recepcia`, e a senha é a do `.env`. A senha só vale quando o banco é criado: para trocá-la depois, apague o banco com `docker compose down -v`.
+- O banco fica em `localhost:5432` e se chama `recepcia`. A API entra com o usuário `recepcia`, dono do banco mas sem poderes de superusuário, como no Heroku. Assim a segurança em nível de linha, que separa os dados de cada empresa, vale também no computador (ADR 0004). O superusuário `postgres` serve só para criar esse usuário.
+- Os dois usuários usam a senha do `.env`. Ela só vale quando o banco é criado: para trocá-la depois, apague o banco com `docker compose down -v`.
 - Os e-mails que a API envia não saem do computador. Eles aparecem no Mailpit, em <http://localhost:8025>.
 
 ### Backend

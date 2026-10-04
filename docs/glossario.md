@@ -18,6 +18,7 @@ Os módulos do backend (ADR 0002) e o pacote de cada um, dentro de `me.recepcia`
 | Termo | No código | Definição |
 | --- | --- | --- |
 | Empresa | `Business` | Negócio que assina a RecepcIA, como um salão ou uma barbearia. Toda informação de cliente, agenda e conversa pertence a uma empresa, e uma empresa nunca vê os dados de outra. |
+| Empresa da sessão | `BusinessContext` | A empresa cujos dados o sistema mostra e altera num dado momento, como a que a pessoa escolheu ao entrar no painel. Sem empresa da sessão, nenhum dado de empresa aparece. |
 | Segmento | `Segment` | Tipo de negócio da empresa: salão, barbearia, estética, estúdio, pet shop, personal trainer. Muda o vocabulário e alguns campos, mas não as regras centrais. |
 | Plano | `Plan` | O que a empresa assina. Define quais módulos ela pode usar. |
 | Usuário | `User` | Pessoa com login no painel. |

@@ -17,3 +17,4 @@ Como e por que os ADRs são escritos está no [ADR 0001](0001-registrar-decisoes
 | [0011](0011-licenca-agpl-e-repositorio-privado.md) | Licença AGPL-3.0, com o repositório privado por enquanto | aceita |
 | [0012](0012-estrategia-de-testes.md) | Estratégia de testes | aceita |
 | [0013](0013-integracao-continua-com-semgrep-e-gitleaks.md) | Integração contínua no GitHub Actions, com Semgrep e gitleaks | aceita |
+| [0014](0014-chaves-uuid-versao-7.md) | Chaves UUID versão 7, geradas pela aplicação | aceita |
