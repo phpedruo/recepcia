@@ -10,15 +10,21 @@ services:
     image: postgres:18
     environment:
       POSTGRES_DB: recepcia
-      POSTGRES_USER: recepcia
+      # Superusuário, usado só para criar o usuário recepcia, que a API usa.
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?copie o .env.example para .env}
     ports:
       # Só o próprio computador acessa as portas, nunca a rede.
       - 127.0.0.1:5432:5432
     volumes:
       - postgres-data:/var/lib/postgresql
+      # Cria o usuário recepcia, dono do banco e sem poderes de superusuário,
+      # como no Heroku. Os testes usam o mesmo script.
+      - ./backend/src/test/resources/postgres/create-app-user.sh:/docker-entrypoint-initdb.d/create-app-user.sh:ro
     healthcheck:
-      test: pg_isready --username=recepcia --dbname=recepcia
+      # Pela rede (--host), e não pelo socket: enquanto cria o banco, a imagem
+      # liga um servidor provisório que só atende pelo socket.
+      test: pg_isready --host=127.0.0.1 --username=recepcia --dbname=recepcia
       interval: 2s
       timeout: 5s
       retries: 15
